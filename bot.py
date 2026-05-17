@@ -1,7 +1,7 @@
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
-
-TOKEN = "8554647764:AAGnG2Syszi88ll6a6t74HRn9zU_m2W-sv0"
+import os
+TOKEN = os.getenv("BOT_TOKEN")
 SITE_URL = "https://cvety-tmn.ru/"
 PHONE = "+7 (919) 930-79-82"
 BOT_NAME = "Цветы Событий"
