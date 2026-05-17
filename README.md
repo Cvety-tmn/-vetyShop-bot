@@ -3,7 +3,7 @@ from telegram.ext import Application, CommandHandler, MessageHandler, ContextTyp
 import os
 
 TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_CHAT_ID = 123456789  # потом заменим на ваш chat_id
+ADMIN_CHAT_ID = 5759360747  # потом заменим на ваш chat_id
 
 SITE_URL = "https://cvety-tmn.ru/"
 PHONE = "+7 (919) 930-79-82"
