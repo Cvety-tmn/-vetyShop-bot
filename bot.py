@@ -75,3 +75,61 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+    import os
+from telegram import Update, ReplyKeyboardMarkup
+from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
+
+TOKEN = os.getenv("8554647764:AAGlw75dzxhcP7RXeg55Tu1dU5O1UyLJj7M")
+ADMIN_CHAT_ID = 123456789  # сюда потом вставите свой chat_id
+
+menu_keyboard = ReplyKeyboardMarkup(
+    [["Подобрать букет", "Узнать цены"], ["Оформить заказ", "Связаться с менеджером"]],
+    resize_keyboard=True
+)
+
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(
+        "Здравствуйте! Я бот магазина «Цветы Событий Shop». Помогу подобрать букет и оформить заказ.",
+        reply_markup=menu_keyboard
+    )
+
+async def myid(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text(f"Ваш chat_id: {update.effective_chat.id}")
+
+async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    text = update.message.text
+
+    await update.message.reply_text(
+        "Спасибо! Сообщение получено. Мы свяжемся с вами в ближайшее время."
+    )
+
+    if ADMIN_CHAT_ID:
+        username = f"@{user.username}" if user.username else "без username"
+        full_name = user.full_name
+
+        admin_text = (
+            "📩 Новое сообщение в боте\n\n"
+            f"Имя: {full_name}\n"
+            f"Username: {username}\n"
+            f"User ID: {user.id}\n"
+            f"Chat ID: {update.effective_chat.id}\n"
+            f"Сообщение: {text}"
+        )
+
+        await context.bot.send_message(chat_id=ADMIN_CHAT_ID, text=admin_text)
+
+def main():
+    app = Application.builder().token(TOKEN).build()
+
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("myid", myid))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+
+    print("Бот запущен")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
