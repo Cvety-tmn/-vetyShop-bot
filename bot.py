@@ -39,39 +39,42 @@ CONTACT_KEYBOARD = ReplyKeyboardMarkup(
 )
 
 START_TEXT = (
-    "Здравствуйте! 🌿 \n"
-    f"Добро пожаловать в «{BOT_NAME}».\n\n"
-    "Я помогу подобрать букет, расскажу о доставке и быстро передам вашу заявку.\n"
-    "Выберите нужный пункт в меню ниже."
+    "Здравствуйте! 🌷\n"
+    f"Вы в студии «{BOT_NAME}».\n\n"
+    "Подберём букет под настроение, вовремя привезём и всё красиво оформим.\n"
+    "Выберите, что хотите сделать 👇"
 )
 
 ABOUT_TEXT = (
-    "«Цветы Событий» — студия цветов и подарков.\n\n"
-    f"📍 Адрес: {ADDRESS}\n"
-    f"🕗 Режим работы: {WORK_TIME}\n"
-    f"📞 Телефон: {PHONE}\n\n"
-    "🚚 Доставка бесплатно в пределах окружной автодороги от 3000 руб.\n"
-    "⏱ Доставка от 90 минут.\n"
-    "🌿 Гарантия свежести — 48 часов."
+    "«Цветы Событий» — когда важен момент 💫\n\n"
+    f"📍 {ADDRESS}\n"
+    f"🕗 {WORK_TIME}\n"
+    f"📞 {PHONE}\n\n"
+    "🚚 Бесплатная доставка в пределах окружной автодороги от 3000 ₽.\n"
+    "⏱ Привозим от 90 минут.\n"
+    "🌿 Свежесть букета — гарантия 48 часов, если ухаживать по нашим советам."
 )
 
 CONTACT_TEXT = (
+    "Наши контакты для быстрой связи 📲\n\n"
     f"📍 Адрес: {ADDRESS}\n"
-    f"🕗 Режим работы: {WORK_TIME}\n"
+    f"🕗 Время работы: {WORK_TIME}\n"
     f"📞 Телефон: {PHONE}\n"
     f"🌐 Сайт: {SITE_URL}"
 )
 
 DELIVERY_TEXT = (
-    "🚚 Условия доставки:\n\n"
-    "• Бесплатно в пределах окружной автодороги при заказе от 3000 руб.\n"
+    "🚚 Как мы доставляем:\n\n"
+    "• Бесплатно в пределах окружной автодороги от 3000 ₽.\n"
     "• Доставка от 90 минут.\n"
-    "• Гарантия свежести — 48 часов."
+    "• Аккуратная подача и фото по готовности.\n"
+    "• Свежесть букета — гарантия 48 часов 💐"
 )
 
 MANAGER_TEXT = (
-    f"Связаться с менеджером:\n{PHONE}\n\n"
-    "Или оставьте заявку через кнопку «💐 Подобрать букет», и мы напишем вам сами."
+    "Связаться с менеджером 😌\n\n"
+    f"📞 Позвоните: {PHONE}\n\n"
+    "Или оставьте заявку через «💐 Подобрать букет» — мы напишем вам сами."
 )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -98,8 +101,8 @@ async def manager(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def order_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "Для какого повода нужен букет?\n"
-        "Например: день рождения, свадьба, благодарность, без повода.",
+        "Для какого повода нужен букет? 💐\n"
+        "Например: день рождения, свидание, благодарность или просто так.",
         reply_markup=ReplyKeyboardMarkup([["⬅️ Отмена"]], resize_keyboard=True),
     )
     return CHOOSING
@@ -113,8 +116,8 @@ async def order_reason(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data["reason"] = text
     await update.message.reply_text(
-        "На какой бюджет ориентируемся?\n"
-        "Например: до 3000, 3000–5000, 5000+"
+        "На какой бюджет ориентируемся? 💸\n"
+        "Например: до 3000, 3000–5000 или 5000+."
     )
     return BUDGET
 
@@ -126,7 +129,7 @@ async def order_budget(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConversationHandler.END
 
     context.user_data["budget"] = text
-    await update.message.reply_text("Как вас зовут?")
+    await update.message.reply_text("Как к вам обращаться? 🙂")
     return NAME
 
 async def order_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -138,7 +141,8 @@ async def order_name(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data["name"] = text
     await update.message.reply_text(
-        "Отправьте номер телефона кнопкой ниже или напишите его сообщением.",
+        "Отправьте номер телефона кнопкой ниже или напишите его сообщением.\n"
+        "Мы позвоним или напишем, чтобы подтвердить детали ✨",
         reply_markup=CONTACT_KEYBOARD,
     )
     return CONTACT
@@ -157,7 +161,8 @@ async def order_contact(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data["phone"] = phone
 
     await update.message.reply_text(
-        "Укажите адрес доставки или напишите «Самовывоз».",
+        "Куда везём букет? 🚚\n"
+        "Напишите адрес или слово «Самовывоз».",
         reply_markup=ReplyKeyboardMarkup([["Самовывоз"], ["⬅️ Отмена"]], resize_keyboard=True),
     )
     return DELIVERY
@@ -171,9 +176,9 @@ async def order_delivery(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     context.user_data["delivery"] = text
     await update.message.reply_text(
-        "Добавьте комментарий к заказу:\n"
-        "например, дата, время, пожелания по цветам.\n\n"
-        "Если комментария нет — напишите «Нет»."
+        "Добавьте комментарий к заказу 📝\n"
+        "Дата, время доставки, любимые или нежелательные цветы.\n\n"
+        "Если без пожеланий — напишите «Нет»."
     )
     return COMMENT
 
@@ -209,7 +214,7 @@ async def order_comment(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         "Спасибо! 🌸\n"
-        "Заявка отправлена. Мы свяжемся с вами в ближайшее время для подтверждения заказа.",
+        "Заявка отправлена флористу. Мы свяжемся с вами в ближайшее время.",
         reply_markup=MAIN_KEYBOARD,
     )
 
@@ -238,7 +243,7 @@ async def text_router(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await delivery_info(update, context)
     else:
         await update.message.reply_text(
-            "Пожалуйста, выберите нужную кнопку в меню ниже.",
+            "Выберите, пожалуйста, нужную кнопку ниже 👇",
             reply_markup=MAIN_KEYBOARD,
         )
 
