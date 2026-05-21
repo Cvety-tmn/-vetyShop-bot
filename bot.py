@@ -14,6 +14,8 @@ ADMIN_CHAT_ID = 5759360747
 
 BOT_NAME = "Цветы Событий Shop"
 PHONE = "+7 (919) 930-79-82"
+ADMIN_USERNAME = "@sobitieeee"
+ADMIN_LINK = "https://t.me/sobitieeee"
 SITE_URL = "https://cvety-tmn.ru/"
 ADDRESS = "Тюмень, Сакко 30/1"
 WORK_TIME = "Ежедневно с 8:00 до 22:00"
@@ -49,7 +51,10 @@ ABOUT_TEXT = (
     "«Цветы Событий» — когда важен момент 💫\n\n"
     f"📍 {ADDRESS}\n"
     f"🕗 {WORK_TIME}\n"
-    f"📞 {PHONE}\n\n"
+    f"📞 {PHONE}\n"
+    f"✉️ Написать администратору: {ADMIN_USERNAME}\n"
+    f"🔗 Быстрая ссылка: {ADMIN_LINK}\n"
+    f"🌐 {SITE_URL}\n\n"
     "🚚 Бесплатная доставка в пределах окружной автодороги от 3000 ₽.\n"
     "⏱ Привозим от 90 минут.\n"
     "🌿 Свежесть букета — гарантия 48 часов, если ухаживать по нашим советам."
@@ -59,7 +64,9 @@ CONTACT_TEXT = (
     "Наши контакты для быстрой связи 📲\n\n"
     f"📍 Адрес: {ADDRESS}\n"
     f"🕗 Время работы: {WORK_TIME}\n"
-    f"📞 Телефон: {PHONE}\n"
+    f"📞 Позвонить: {PHONE}\n"
+    f"✉️ Написать администратору: {ADMIN_USERNAME}\n"
+    f"🔗 Ссылка на администратора: {ADMIN_LINK}\n"
     f"🌐 Сайт: {SITE_URL}"
 )
 
@@ -73,8 +80,10 @@ DELIVERY_TEXT = (
 
 MANAGER_TEXT = (
     "Связаться с менеджером 😌\n\n"
-    f"📞 Позвоните: {PHONE}\n\n"
-    "Или оставьте заявку через «💐 Подобрать букет» — мы напишем вам сами."
+    f"📞 Позвоните: {PHONE}\n"
+    f"✉️ Или напишите администратору: {ADMIN_USERNAME}\n"
+    f"🔗 Прямая ссылка: {ADMIN_LINK}\n\n"
+    "Также можно оставить заявку через «💐 Подобрать букет» — мы ответим сами."
 )
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -282,4 +291,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
